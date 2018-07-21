@@ -1,4 +1,6 @@
 (function($){
+  alert('contorl came here');
+  // Table horizontal scroll
   jQuery(window).on("load",function(){
     jQuery(".table-scroll").mCustomScrollbar({
       axis:"x",
@@ -9,9 +11,11 @@
     });  
   });
 
+  // Preview fancybox on click session element
   jQuery(".session-card").click(function() {
+    var sessionpopid = $(this).attr('data');
     jQuery.fancybox.open({
-      src  : '#card-detail',
+      src  : '#'+sessionpopid,
       type : 'inline',
       showCloseButton : 'hide',
       opts : {

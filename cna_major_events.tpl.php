@@ -1,4 +1,4 @@
-<?php print "<div class='scheduleInfoArr' style='display:none'><pre>";print_r($scheduleInfo);echo "</pre></div>"; ?>
+<?php //print "<div class='scheduleInfoArr' style='display:none'><pre>";print_r($scheduleInfo);echo "</pre></div>"; ?>
 <?php $imgPath = drupal_get_path('module', 'cna_major_events'); ?>
 <div class="row">
   <div class="large-12">
@@ -52,7 +52,7 @@ if(isset($scheduleInfo)){
       <div class="single-timeslot">
           <div class="session-table">
             <div class="timeslot-title">
-              <div class="timeslot-title-in"><h4>SESSION <?php $timeval['slotCounter']; ?> <span><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></span></h4></div>
+              <div class="timeslot-title-in"><h4>SESSION <?php print $timeval['slotCounter']; ?> <span><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></span></h4></div>
             </div>
             <div class="table-scroll">
               <table>
@@ -92,7 +92,7 @@ if(isset($scheduleInfo)){
                                     
                                   </div>
                                   <?php if(isset($sessionval['session_tag'])){?>
-                                      <span class="intermediate"><?php print $sessionval['session_tag']; ?></span>
+                                      <span class="<?php print $sessionval['session_tag']; ?>"><?php print $sessionval['session_tag']; ?></span>
                                     <?php } ?>  
                                 </a>
                                  <!-- Session Fancybox starts here -->
