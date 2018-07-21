@@ -129,6 +129,25 @@ if(isset($scheduleInfo)){
       <?php 
     }
   }
+  ?>
+  <div class="session-date">
+    <div class="row">
+      <div class="large-12">
+        <h2>
+          <?php if(isset($scheduleInfo['previousday'])){
+            ?>
+            <span class="prev-date"><a href="<?php print $scheduleInfo['previousday']; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
+            <?php   
+          } ?>
+          
+          DAY <?php print $scheduleInfo['dayCounter']; ?> | <text> <?php print $day; ?> </text> 
+          <?php if(isset($scheduleInfo['nextday'])){ ?>
+                  <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
+          <?php } ?>      
+      </div>
+    </div>
+  </div>
+  <?php
 }
 ?>
 
