@@ -1,5 +1,5 @@
 (function($){
-  alert('contorl came here');
+  // alert('contorl came here');
   // Table horizontal scroll
   jQuery(window).on("load",function(){
     jQuery(".table-scroll").mCustomScrollbar({

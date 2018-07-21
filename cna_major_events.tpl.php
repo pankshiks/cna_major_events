@@ -81,7 +81,7 @@ if(isset($scheduleInfo)){
                             foreach ($scheduleInfo['sessions'][$trackval['id']][$timeval['id']] as $sessionkey => $sessionval) {
                               if(isset($sessionval['id'])){
                                 ?>
-                                <a href="javascript:;" class="session-card fancybox" data="<?php print $session_i; ?>" rel="group">
+                                <a href="javascript:;" class="session-card fancybox" data="<?php print 'sch_'.$trackval['id'].'_'.$timeval['id'].'_'.$sessionval['id']; ?>" rel="group">
                                   <div class="card-info">
                                     <h5><?php print $sessionval['title']; ?></h5>
                                     <?php if(isset($sessionval['session_speaker'])){
@@ -96,7 +96,7 @@ if(isset($scheduleInfo)){
                                     <?php } ?>  
                                 </a>
                                  <!-- Session Fancybox starts here -->
-                                  <div id="<?php print $session_i; ?>" class="card-detail-popup" style="display:none;">
+                                  <div id="<?php print 'sch_'.$trackval['id'].'_'.$timeval['id'].'_'.$sessionval['id']; ?>" class="card-detail-popup" style="display:none;">
                                     <h3>DAY 1 | <span><?php print $day; ?> | <?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></span></h3>
                                     <h4><?php print $sessionval['title']; ?></h4>
                                     <?php if(isset($sessionval['session_speaker'])){
