@@ -33,13 +33,24 @@ if(isset($scheduleInfo)){
   <?php 
   if(isset($scheduleInfo['timeslot'])){
     foreach ($scheduleInfo['timeslot'] as $timekey => $timeval) {
-      //echo "<pre>";print_r($scheduleInfo['sessions'][$timeval['id']]);echo "</pre>";
-
-      //print timeslot description if it doesn't contain any sessions
-      if(isset($scheduleInfo['sessions'][$timeval['id']])){
-        
+      echo "<pre>";print_r($timeval);echo "</pre>";
       ?>
-       <div class="single-timeslot">
+      <div class="session-time yellow-bg">
+        <table class="mb-block">
+          <thead>
+            <tr>
+              <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
+              <?php if(isset($timeval['timeslot_description'])){
+                ?>
+                  <th><h3><?php print $timeval['timeslot_description']; ?><h3></th>
+                <?php 
+              } ?>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="single-timeslot">
           <div class="session-table">
             <div class="timeslot-title">
               <div class="timeslot-title-in"><h4>SESSION <?php print $timeval['slotCounter']; ?> <span><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></span></h4></div>
@@ -66,9 +77,9 @@ if(isset($scheduleInfo)){
                     $session_i = 0;
                       foreach ($scheduleInfo['track'] as $trackey => $trackval) {
                         print '<td>';
-                        if(isset($scheduleInfo['sessions'][$timeval['id']][$trackval['id']])){
-                          if(isset($scheduleInfo['sessions'][$timeval['id']][$trackval['id']])){
-                            foreach ($scheduleInfo['sessions'][$timeval['id']][$trackval['id']] as $sessionkey => $sessionval) {
+                        if(isset($scheduleInfo['sessions'][$trackval['id']])){
+                          if(isset($scheduleInfo['sessions'][$trackval['id']][$timeval['id']])){
+                            foreach ($scheduleInfo['sessions'][$trackval['id']][$timeval['id']] as $sessionkey => $sessionval) {
                               if(isset($sessionval['id'])){
                                 ?>
                                 <a href="javascript:;" class="session-card fancybox" data="<?php print 'sch_'.$trackval['id'].'_'.$timeval['id'].'_'.$sessionval['id']; ?>" rel="group">
@@ -115,30 +126,8 @@ if(isset($scheduleInfo)){
               </table>
             </div>
           </div>
-       </div>
-    
-      <?php
-        }else{ // print the Timeslot table
-          if(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){
-      ?>
-
-        <div class="session-time yellow-bg">
-        <table class="mb-block">
-          <thead>
-            <tr>
-              <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
-              <?php if(isset($timeval['timeslot_description'])){
-                ?>
-                  <th><h3><?php print $timeval['timeslot_description']; ?><h3></th>
-                <?php 
-              } ?>
-            </tr>
-          </thead>
-        </table>
       </div>
       <?php 
-        }
-      }
     }
   }
   ?>

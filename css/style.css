@@ -110,6 +110,7 @@
   display: -ms-flexbox;
   display: flex;
 }
+.single-timeslot .session-table .table-scroll{overflow:scroll}
 .single-timeslot .session-table .timeslot-title {
   width: 230px;
   -webkit-box-flex: 1;

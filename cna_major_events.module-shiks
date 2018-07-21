@@ -152,17 +152,17 @@ function cna_major_events_page($eventid) {
   if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
     $k = 0;
     foreach ($eventSchedule['values'] as $eschekey => $escheval) {
-      $scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$k] = $sessionInfo[$escheval['event_session_id']];
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k] = $sessionInfo[$escheval['event_session_id']];
       if(isset($escheval['session_slot'])){
         $j = $k-1;
-        if(isset($scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$j])){
-          if($escheval['session_slot'] == 'end'  && in_array($escheval['event_session_id'], $scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$j])){
+        if(isset($scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$j])){
+          if($escheval['session_slot'] == 'end'  && in_array($escheval['event_session_id'], $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$j])){
             continue;
           }
         }
       }
-      $scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$k]['id'] = $escheval['event_session_id'];
-      $scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$k]['title'] = $scheduleSessionList[$escheval['event_session_id']];
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k]['id'] = $escheval['event_session_id'];
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k]['title'] = $scheduleSessionList[$escheval['event_session_id']];
       $k++;
     } 
   }
