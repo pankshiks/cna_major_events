@@ -1,0 +1,443 @@
+.yellow-bg {
+  background-color: #F1C319;
+}
+.pink-bg {
+  background-color: #5B0053;
+}
+.beginner {
+  background-color: #005A4F;
+}
+.intermediate {
+  background-color: #2A327F;
+}
+.advanced {
+  background-color: #79292E;
+}
+.session-tags {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0px;
+}
+.session-tags li {
+  display: inline-block;
+  margin-right: 9px;
+  color: #fff;
+  padding: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: Bold;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.session-date {
+  background-color: #2A327F;
+  margin-top: 10px;
+}
+.session-date h2 {
+  margin: 0px;
+  padding: 13px 0;
+  line-height: 42px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+.session-date h2 img {
+  max-height: 44px;
+  vertical-align: text-bottom;
+}
+.session-date h2 a {
+  color: #fff;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-date h2 a:hover {
+  color: #f1c319;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-date h2 .next-date {
+  float: right;
+}
+.session-date h2 .prev-date {
+  float: left;
+}
+.session-date h2 .prev-date img {
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.session-date h2 text {
+  font-weight: 100;
+  font-size: 2.2rem;
+}
+.session-date h2 span {
+  font-weight: 100;
+  font-size: 2.2rem;
+}
+.session-time {
+  margin-top: 10px;
+}
+.session-time table {
+  background: transparent;
+  margin-bottom: 0;
+  border: 0;
+}
+.session-time table thead {
+  background: transparent;
+  border: 0;
+}
+.session-time table thead tr th {
+  border: 0px;
+  font-size: 14px;
+  padding: 8px 18px;
+  color: #fff;
+}
+.session-time table thead tr th h3 {
+  font-size: 26px;
+  line-height: 30px;
+  margin: 0;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+.single-timeslot .session-table {
+  position: relative;
+  border: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.single-timeslot .session-table .timeslot-title {
+  width: 230px;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: center;
+  padding: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 64px;
+  border-top: 1px solid #2A327F;
+  border-right: 1px solid #2A327F;
+}
+@-moz-document url-prefix() {
+  .single-timeslot .session-table .timeslot-title {
+    margin-top: 63px;
+  }
+}
+.single-timeslot .session-table .timeslot-title h4 {
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 30px;
+  color: #2A327F;
+  font-family: 'Roboto', sans-serif;
+}
+.single-timeslot .session-table .timeslot-title h4 span {
+  font-size: 14px;
+  display: block;
+}
+.single-timeslot .session-table .timeslot-title .timeslot-title-in {
+  width: 100%;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+.single-timeslot .session-table table {
+  border: 0px;
+  margin-bottom: 0;
+}
+.single-timeslot .session-table table thead {
+  background: #fff;
+  border: 0px;
+}
+.single-timeslot .session-table table .session-tracks th {
+  text-align: center;
+  color: #2A327F;
+  border-bottom: 1px solid #2A327F;
+  height: 64px;
+}
+.single-timeslot .session-table table tr td {
+  width: 135px;
+  padding: 6px 3px;
+  vertical-align: top;
+  min-width: 135px;
+}
+.single-timeslot .session-table table tr td:first-child {
+  padding-left: 6px;
+}
+.session-card {
+  display: inline-block;
+  margin-bottom: 6px;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-card:hover .card-info {
+  background-color: #f1f1f1;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-card:focus {
+  outline: none !important;
+}
+.session-card .card-info {
+  background-color: #ddd;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  color: #000;
+  min-height: 186px;
+  padding: 15px;
+}
+.session-card .card-info h5 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+.session-card .card-info p {
+  font-size: 14px;
+  margin-bottom: 0px;
+  font-style: italic;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+.session-card span {
+  width: 100%;
+  border-radius: 0px;
+  font-size: 12px;
+  padding: 8px;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+.card-detail-popup {
+  width: 1247px;
+  display: none;
+}
+.card-detail-popup h3 {
+  font-weight: bold;
+  font-size: 36px;
+  color: #2A327F;
+  line-height: 42px;
+  margin-bottom: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+.card-detail-popup h3 span {
+  font-weight: 400;
+  font-size: 32px;
+}
+.card-detail-popup h4 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  line-height: 30px;
+  color: #2A327F;
+}
+.card-detail-popup h4.speaker {
+  font-weight: 100;
+  font-style: italic;
+  margin-bottom: 18px;
+}
+.card-detail-popup p {
+  font-size: 26px;
+  line-height: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+.card-detail-popup .fancybox-close-small {
+  display: none !important;
+}
+.purple-btn {
+  background-color: #2A327F;
+  border: 1px solid #2A327F;
+  padding: 10px 11px;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 32px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/*
+::-webkit-scrollbar-button:horizontal:increment {
+    background-image: url(arrow.png);
+}
+
+::-webkit-scrollbar-button:horizontal:decrement {
+    background-image: url(4.png);
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+    background-image: url(3.png);
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url(.png);
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f8f8;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #989898;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #808080;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+*/
+/* Media Query */
+@media (max-width: 1199px) {
+  .session-date {
+    padding: 0 20px;
+  }
+  .card-detail-popup {
+    width: 850px;
+  }
+  .card-detail-popup h3 {
+    font-size: 30px;
+    line-height: 30px;
+    margin-bottom: 12px;
+  }
+  .card-detail-popup h4 {
+    font-size: 24px;
+  }
+  .card-detail-popup p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .card-detail-popup .purple-btn {
+    padding: 8px 11px;
+    font-size: 28px;
+  }
+}
+@media (max-width: 900px) {
+  .session-date {
+    padding: 0 20px;
+  }
+  .single-timeslot .session-table .timeslot-title {
+    width: 300px;
+  }
+  .card-detail-popup {
+    width: 700px;
+  }
+  .session-date h2 {
+    font-size: 1.5rem;
+  }
+  .session-date h2 span {
+    font-size: 1.5rem;
+  }
+  .session-date h2 text {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .card-detail-popup {
+    padding: 15px;
+  }
+  .card-detail-popup h3 {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+  .card-detail-popup h3 span {
+    font-weight: 400;
+    font-size: 20px;
+  }
+  .card-detail-popup h4 {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .card-detail-popup p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  table.mb-block thead tr th {
+    display: block;
+  }
+  table.mb-block thead tr td {
+    display: block;
+  }
+  .session-date {
+    padding: 0 10px;
+  }
+  .session-date h2 {
+    padding: 6px 0;
+    line-height: 30px;
+  }
+  .session-date h2 img {
+    max-width: 20px;
+  }
+  .session-date h2 span {
+    font-size: 0rem;
+  }
+  .session-date h2 text {
+    font-size: 1.2rem;
+  }
+  .session-time table thead tr th {
+    padding: 6px 12px 0;
+  }
+  .session-time table thead tr th h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .single-timeslot .session-table {
+    display: block;
+  }
+  .single-timeslot .session-table .timeslot-title {
+    width: inherit;
+    padding: 0;
+    margin-top: 10px;
+    border: 0px;
+  }
+  .single-timeslot .session-table .timeslot-title h4 {
+    background-color: #2A327F;
+    color: #fff;
+    padding: 10px 0;
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 0px;
+  }
+}
+@media (max-width: 550px) {
+  .session-tags {
+    margin-left: 0;
+    text-align: center;
+  }
+  .session-tags li {
+    margin-right: 2px;
+    padding: 10px 8px;
+  }
+  .session-time table thead tr th h3 {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

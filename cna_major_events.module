@@ -1,0 +1,173 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function cna_major_events_menu() {
+  $items['events/%/schedule'] = array(
+    'page title' => 'Schedule',
+    'page callback' => 'cna_major_events_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * page callback.
+ */
+function cna_major_events_page($eventid) {
+  // initialization of scheduleInfo
+  $scheduleInfo = array();
+  cna_major_events_include_scripts();
+  civicrm_initialize();
+  $dayid = arg(3);
+  //echo civicrm_api('Event','get_count');exit;
+  // Day
+  $dayCount = civicrm_api3('EventDay', 'getcount', array('event_id' => $eventid));
+  $resultDay = civicrm_api3('EventDay', 'get', array( 'event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
+  if(count($resultDay['values']) > 0 ){
+    $dayCounter = 0;
+    foreach ($resultDay['values'] as $daykey => $dayval) {
+      // condition to set first day as current day , if dayid is not exist in path 
+      if((empty($dayid) || !is_numeric($dayid)) && $dayCounter == 0){
+        $dayid = $dayval['id'];
+      }
+      $scheduleInfo['dayCounter'] = $dayCounter++;
+      // Once current day is set, next element in row will be considered as Next day and traversing will be stopped
+      if(isset($scheduleInfo['day'])){
+        $scheduleInfo['nextday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
+        break;
+      }
+      // check if currently traversed element is current day or previous day
+      if($dayval['id'] == $dayid){
+        $scheduleInfo['day'] = date('M d, Y', strtotime($dayval['day']));
+      }else{
+
+        $scheduleInfo['previousday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
+      }
+    }
+  }
+
+  // initialization of scheduleInfo
+  $scheduleInfo['eid'] = $eventid;
+  $scheduleInfo['dayid'] = $dayid;
+
+  $resultTracks = civicrm_api3('EventTrack', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  if(count($resultTracks['values']) > 0){
+    $j = 0;
+    foreach ($resultTracks['values'] as $trackkey => $trackval) {
+        $scheduleInfo['track'][$j]['id'] = $trackval['id'];
+        $scheduleInfo['track'][$j]['track_name'] = $trackval['track_name'];
+        $j++;
+    }
+  }
+
+  $resultTimeslots = civicrm_api3('EventTimeSlot', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  if(count($resultTimeslots['values']) > 0){
+    $j = 0;
+    $format = '%02d:%02d';
+    foreach ($resultTimeslots['values'] as $timekey => $timeval) {
+      $slotCounter = $j; 
+      $scheduleInfo['timeslot'][$j]['id'] = $timeval['id'];
+      $scheduleInfo['timeslot'][$j]['slotCounter'] = $slotCounter + 1;
+      $startTime = date("g:i a", strtotime( convertToHoursMins($timeval['start_time'], '%02d:%02d '))); 
+      $endTime =  date("g:i a", strtotime(convertToHoursMins($timeval['end_time'], '%02d:%02d ')));
+
+      $scheduleInfo['timeslot'][$j]['start_time'] = $startTime;
+      if(isset($timeval['timeslot_description'])){
+        $scheduleInfo['timeslot'][$j]['timeslot_description'] = $timeval['timeslot_description'];
+      }
+      $scheduleInfo['timeslot'][$j]['end_time'] = $endTime;
+      $j++;
+    }
+  }
+    
+  // Event Session List
+  $eventSession = civicrm_api3('EventSession', 'get', array('event_id' => $eventid));
+  $scheduleSessionList = array(); // List of already scheduled Sessions
+  if(count($eventSession['values']) > 0 ){
+    foreach ($eventSession['values'] as $eskey => $esvalue) {
+      // Code to ignore sessionId that already schedule for current Event\
+      $scheduleSession = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_session_id' => $esvalue['id']));
+      if(count($scheduleSession['values']) > 0 ){
+        $scheduleSessionList[$esvalue['id']] = $esvalue['event_session_name']; // used for table content
+        if(isset($esvalue['session_description'])){
+          $sessionInfo[$esvalue['id']]['session_description'] = $esvalue['session_description'];
+        }
+        if(isset($esvalue['session_tag'])){
+          $sessionInfo[$esvalue['id']]['session_tag'] = $esvalue['session_tag'];
+        }
+        // speaker information
+        if(isset($esvalue['speaker'])){
+          $speakerArr = array();
+          $speakerArr = explode(',', $esvalue['speaker']);
+          foreach ($speakerArr as $speakerArrkey => $speakerId) {
+            if(!empty($speakerId)){
+              $resultSpeaker = civicrm_api3('Contact', 'get', array('id' => $speakerId));
+              if(count($resultSpeaker['values']) > 0){
+                //echo "<pre>";print_r($resultSpeaker['values']);exit;
+                $sessionInfo[$esvalue['id']]['session_speaker'][] = $resultSpeaker['values'][$speakerId]['display_name'];
+              }
+            }
+          }
+        }
+        //$scheduleSession = civicrm_api3('Contact', 'get', array('id' => );
+      }
+    }
+  }
+  //echo "<pre>";print_r($sessionInfo);exit;
+  // Schedule list
+  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  
+  if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
+    $k = 0;
+    foreach ($eventSchedule['values'] as $eschekey => $escheval) {
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k] = $sessionInfo[$escheval['event_session_id']];
+      if(isset($escheval['session_slot'])){
+        $j = $k-1;
+        if(isset($scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$j])){
+          if($escheval['session_slot'] == 'end'  && in_array($escheval['event_session_id'], $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$j])){
+            continue;
+          }
+        }
+      }
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k]['id'] = $escheval['event_session_id'];
+      $scheduleInfo['sessions'][$escheval['event_track_id']][$escheval['event_time_slot_id']][$k]['title'] = $scheduleSessionList[$escheval['event_session_id']];
+      $k++;
+    } 
+  }
+  //$scheduleInfo = static_session();
+  //echo "<pre>";print_r($scheduleInfo);exit;
+  $vars = array(
+  	'scheduleInfo' => $scheduleInfo,
+  );
+  return theme('cna_major_events', $vars);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cna_major_events_theme() {
+  return array(
+    'cna_major_events' => array(
+      'variables' => array(
+      	'scheduleInfo' => NULL,
+      ),
+      'template' => 'cna_major_events',
+    ),
+  );
+}
+
+function cna_major_events_include_scripts() {
+  drupal_add_css(drupal_get_path('module', 'cna_major_events') . "/css/foundation.min.css");
+	drupal_add_css(drupal_get_path('module', 'cna_major_events') . "/css/jquery.fancybox.css");
+	drupal_add_css(drupal_get_path('module', 'cna_major_events') . "/css/jquery.mCustomScrollbar.css");
+	drupal_add_css("https://fonts.googleapis.com/css?family=Roboto");
+  drupal_add_css(drupal_get_path('module', 'cna_major_events') . "/css/style.css");
+
+  drupal_add_js(drupal_get_path('module', 'cna_major_events') . "/js/jquery.fancybox.js", array('scope' => 'footer'));
+  drupal_add_js(drupal_get_path('module', 'cna_major_events') . "/js/jquery.mCustomScrollbar.concat.min.js", array('scope' => 'footer'));
+  drupal_add_js(drupal_get_path('module', 'cna_major_events') . "/js/cna_major_events.js", array('scope' => 'footer'));
+}

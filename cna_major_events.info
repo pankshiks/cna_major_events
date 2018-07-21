@@ -1,0 +1,6 @@
+name = CNA Major Events
+description = This module is used to display schedule information for Events.
+core = 7.x
+package = CNA
+version = 7.x-1.0
+dependencies[] = civicrm
