@@ -14,6 +14,14 @@ function cna_major_events_menu() {
   return $items;
 }
 
+function cna_major_events_preprocess_page(&$variables) {
+  if(in_array('page__events__schedule', $variables['theme_hook_suggestions'])){
+    $variables['theme_hook_suggestions'][] = 'page_cna_major_events'; 
+  }
+  //echo "<prE>";print_r($variables);exit;
+  
+}
+
 /**
  * page callback.
  */
@@ -156,6 +164,10 @@ function cna_major_events_theme() {
       	'scheduleInfo' => NULL,
       ),
       'template' => 'cna_major_events',
+    ),
+    'page_cna_major_events' => array(
+      'template' => 'page__cna_major_events',
+      'render element' => 'page',
     ),
   );
 }
