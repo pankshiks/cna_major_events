@@ -116,16 +116,32 @@
   font-weight: 900 !important;
   text-align: center;
   font-family: 'Roboto';
+  position: relative;
 }
 .session-date h2 img {
   max-height: 44px;
-  vertical-align: text-bottom;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
+  -webkit-transform: translate(0%, -50%);
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-date h2 img.hover-img {
+  opacity: 0;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
 }
 .session-date h2 a {
   color: #fff;
   -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
+  position: relative;
+  display: inline-block;
 }
 .session-date h2 a:hover {
   color: #f1c319;
@@ -133,16 +149,50 @@
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
+.session-date h2 a:hover img {
+  opacity: 0;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.session-date h2 a:hover img.hover-img {
+  opacity: 1;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
 .session-date h2 .next-date {
-  float: right;
+  position: absolute;
+  right: 0;
+}
+.session-date h2 .next-date a {
+  padding-right: 40px;
+}
+@media (max-width: 900px) {
+  .session-date h2 .next-date a {
+    padding-right: 30px;
+  }
+}
+.session-date h2 .next-date a img {
+  right: 0px;
 }
 .session-date h2 .prev-date {
-  float: left;
+  position: absolute;
+  left: 0;
+}
+.session-date h2 .prev-date a {
+  padding-left: 40px;
+}
+@media (max-width: 900px) {
+  .session-date h2 .prev-date a {
+    padding-left: 30px;
+  }
 }
 .session-date h2 .prev-date img {
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
+  left: 0;
+  -ms-transform: rotate(180deg) translate(0%, 50%);
+  transform: rotate(180deg) translate(0%, 50%);
+  -webkit-transform: rotate(180deg) translate(0%, 50%);
 }
 .session-date h2 text {
   font-weight: 400;

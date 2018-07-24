@@ -1,5 +1,5 @@
 <?php //print "<div class='scheduleInfoArr' style='display:none'><pre>";print_r($scheduleInfo);echo "</pre></div>"; ?>
-<?php $imgPath = drupal_get_path('module', 'cna_major_events'); ?>
+<?php $imgPath = drupal_get_path('module', 'cna_major_events');$noSchedule = TRUE; ?>
 <?php if(isset($scheduleInfo['eventTitle'])){ ?>
   <div class="row">
     <div class="large-12">
@@ -14,32 +14,84 @@
     </div>
   </div>
 <?php } ?>
-<div class="row">
-  <div class="large-12">
-    <ul class="session-tags">
-      <li class="beginner"> Beginner </li>
-      <li class="intermediate"> Intermediate </li>
-      <li class="advanced"> Advanced </li>
-    </ul>
-  </div>
-</div>
+
 <?php 
-if(isset($scheduleInfo)){ 
+if(isset($scheduleInfo['no_result'])){
+  print '<div class="row"><div class="large-12"><h1>'.$scheduleInfo['no_result'].'</h1></div></div>';
+}/*elseif(!isset($scheduleInfo['sessions']) && ){
+  $day = date('l d, M', strtotime($scheduleInfo['day']));
+?>
+  <div class="row">
+    <div class="large-12">
+      <ul class="session-tags">
+        <li class="beginner"> Beginner </li>
+        <li class="intermediate"> Intermediate </li>
+        <li class="advanced"> Advanced </li>
+      </ul>
+    </div>
+  </div>
+  <div class="session-date">
+    <div class="row">
+      <div class="large-12">
+        <h2>
+          <?php if(isset($scheduleInfo["previousday"])){
+            ?>
+            <span class="prev-date"><a href="<?php print $scheduleInfo["previousday"]; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
+            <?php   
+          } ?>
+          
+          DAY <?php print $scheduleInfo["dayCounter"]; ?> | <text> <?php print $day; ?> </text> 
+          <?php if(isset($scheduleInfo["nextday"])){ ?>
+                  <span class="next-date"><a href="<?php print $scheduleInfo["nextday"]; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
+          <?php } ?>      
+      </div>
+    </div>
+  </div>
+  <div class="row"><div class="large-12"><h1>Sorry, No Session is Scheduled for this Day</h1></div></div>
+  <div class="session-date">
+    <div class="row">
+      <div class="large-12">
+        <h2>
+          <?php if(isset($scheduleInfo["previousday"])){
+            ?>
+            <span class="prev-date"><a href="<?php print $scheduleInfo["previousday"]; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
+            <?php   
+          } ?>
+          
+          DAY <?php print $scheduleInfo["dayCounter"]; ?> | <text> <?php print $day; ?> </text> 
+          <?php if(isset($scheduleInfo["nextday"])){ ?>
+                  <span class="next-date"><a href="<?php print $scheduleInfo["nextday"]; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
+          <?php } ?>      
+      </div>
+    </div>
+  </div>
+
+<?php 
+}*/else{ 
   $day = date('l d, M', strtotime($scheduleInfo['day']));
   ?>
+  <div class="row">
+    <div class="large-12">
+      <ul class="session-tags">
+        <li class="beginner"> Beginner </li>
+        <li class="intermediate"> Intermediate </li>
+        <li class="advanced"> Advanced </li>
+      </ul>
+    </div>
+  </div>
   <div class="session-date">
     <div class="row">
       <div class="large-12">
         <h2>
           <?php if(isset($scheduleInfo['previousday'])){
             ?>
-            <span class="prev-date"><a href="<?php print $scheduleInfo['previousday']; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
+            <span class="prev-date"><a href="<?php print $scheduleInfo['previousday']; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"> previous day </a></span>
             <?php   
           } ?>
           
           DAY <?php print $scheduleInfo['dayCounter']; ?> | <text> <?php print $day; ?> </text> 
           <?php if(isset($scheduleInfo['nextday'])){ ?>
-                  <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
+                  <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"></a></span></h2>  
           <?php } ?>      
       </div>
     </div>
@@ -132,33 +184,37 @@ if(isset($scheduleInfo)){
        </div>
     
       <?php
+      }elseif(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ // print the Timeslot table
+        $noSchedule = FALSE;
+        //if(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ 
+        $timeslot_content = $timeval['timeslot_description'];
+        //}else{
+        //   No result 
+        //   $timeslot_content = 'No Session has been scheduled for current Timeslot';
+        // }
+        if(isset($timeslot_content)){ ?>
+          <div class="session-time yellow-bg">
+            <table class="mb-block">
+              <thead>
+                <tr>
+                  <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
+                  <?php if(isset($timeslot_content)){
+                    ?>
+                      <th><h3><?php print $timeslot_content; ?><h3></th>
+                    <?php 
+                  } ?>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <?php 
         }
-        elseif(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ // print the Timeslot table
-          //if(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ 
-            $timeslot_content = $timeval['timeslot_description'];
-          //}else{
-          //   No result 
-          //   $timeslot_content = 'No Session has been scheduled for current Timeslot';
-          // }
-          if(isset($timeslot_content)){ ?>
-            <div class="session-time yellow-bg">
-              <table class="mb-block">
-                <thead>
-                  <tr>
-                    <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
-                    <?php if(isset($timeslot_content)){
-                      ?>
-                        <th><h3><?php print $timeslot_content; ?><h3></th>
-                      <?php 
-                    } ?>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <?php 
-          }
-        }
+      }
     }
+  }
+
+  if($noSchedule){
+    print '<div class="row"><div class="large-12"><h1>Sorry, No Session is Scheduled for this Day</h1></div></div>';
   }
   ?>
   <div class="session-date">
@@ -167,13 +223,13 @@ if(isset($scheduleInfo)){
         <h2>
           <?php if(isset($scheduleInfo['previousday'])){
             ?>
-            <span class="prev-date"><a href="<?php print $scheduleInfo['previousday']; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
+            <span class="prev-date"><a href="<?php print $scheduleInfo['previousday']; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"> previous day </a></span>
             <?php   
           } ?>
           
           DAY <?php print $scheduleInfo['dayCounter']; ?> | <text> <?php print $day; ?> </text> 
           <?php if(isset($scheduleInfo['nextday'])){ ?>
-                  <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
+                  <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"></a></span></h2>  
           <?php } ?>      
       </div>
     </div>

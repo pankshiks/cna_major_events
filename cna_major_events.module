@@ -52,6 +52,17 @@ function cna_major_events_page($eventid) {
   civicrm_initialize();
   $dayid = arg(3);
 
+  // Code to check if day exist or not
+  if(!empty($dayid)){
+    $isDayExist = civicrm_api3('EventDay', 'getcount', array('id' => $dayid,'event_id' => $eventid));
+  }
+
+  if($isDayExist == 0){
+    $vars = array(
+      'scheduleInfo' => array('no_result' => 'Sorry, No results found'),
+    );
+    return theme('cna_major_events', $vars);
+  }
   // Get event title.
   $EventResult = civicrm_api3('Event', 'get', array('id' => $eventid));
   $scheduleInfo['eventTitle'] = $EventResult['values'][$eventid]['title'];
@@ -60,15 +71,18 @@ function cna_major_events_page($eventid) {
   $resultDay = civicrm_api3('EventDay', 'get', array( 'event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
   if(count($resultDay['values']) > 0 ){
     $dayCounter = 0;
+    //echo "<prE>";print_r($resultDay['values']);exit;
     foreach ($resultDay['values'] as $daykey => $dayval) {
       // condition to set first day as current day , if dayid is not exist in path 
       if((empty($dayid) || !is_numeric($dayid)) && $dayCounter == 0){
         $dayid = $dayval['id'];
       }
-      $scheduleInfo['dayCounter'] = $dayCounter++;
+      $dayCounter++;
+      
       // Once current day is set, next element in row will be considered as Next day and traversing will be stopped
       if(isset($scheduleInfo['day'])){
         $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
+
         if(count($ExistedTimeInSche['values']) > 0){
           $scheduleInfo['nextday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
           break;
@@ -76,6 +90,7 @@ function cna_major_events_page($eventid) {
       }
       // check if currently traversed element is current day or previous day
       if($dayval['id'] == $dayid){
+        $scheduleInfo['dayCounter'] = $dayCounter;
         $scheduleInfo['day'] = date('M d, Y', strtotime($dayval['day']));
       }else{
         $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
@@ -85,7 +100,7 @@ function cna_major_events_page($eventid) {
       }
     }
   }
-
+  
   // initialization of scheduleInfo
   $scheduleInfo['eid'] = $eventid;
   $scheduleInfo['dayid'] = $dayid;
@@ -179,7 +194,7 @@ function cna_major_events_page($eventid) {
     } 
   }
   //$scheduleInfo = static_session();
-  // echo "<pre>";print_r($scheduleInfo);exit;
+  //echo "<pre>";print_r($scheduleInfo);exit;
   $vars = array(
     'scheduleInfo' => $scheduleInfo,
   );
