@@ -1,3 +1,78 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Black.woff2') format('woff2'), url('../fonts/Roboto-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.woff2') format('woff2'), url('../fonts/Roboto-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-LightItalic.woff2') format('woff2'), url('../fonts/Roboto-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.woff2') format('woff2'), url('../fonts/Roboto-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-BlackItalic.woff2') format('woff2'), url('../fonts/Roboto-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Thin.woff2') format('woff2'), url('../fonts/Roboto-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Light.woff2') format('woff2'), url('../fonts/Roboto-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Medium.woff2') format('woff2'), url('../fonts/Roboto-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-ThinItalic.woff2') format('woff2'), url('../fonts/Roboto-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Italic.woff2') format('woff2'), url('../fonts/Roboto-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-MediumItalic.woff2') format('woff2'), url('../fonts/Roboto-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-BoldItalic.woff2') format('woff2'), url('../fonts/Roboto-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+.float-right {
+  float: right;
+}
 .yellow-bg {
   background-color: #F1C319;
 }
@@ -22,8 +97,8 @@
   display: inline-block;
   margin-right: 9px;
   color: #fff;
-  padding: 10px;
-  font-family: 'Roboto', sans-serif;
+  padding: 11px;
+  font-family: 'Roboto';
   font-weight: Bold;
   font-size: 14px;
   line-height: 16px;
@@ -38,9 +113,9 @@
   padding: 13px 0;
   line-height: 42px;
   color: #fff;
-  font-weight: 700;
+  font-weight: 900 !important;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
 .session-date h2 img {
   max-height: 44px;
@@ -70,11 +145,11 @@
   -webkit-transform: rotate(180deg);
 }
 .session-date h2 text {
-  font-weight: 100;
+  font-weight: 400;
   font-size: 2.2rem;
 }
 .session-date h2 span {
-  font-weight: 100;
+  font-weight: 400;
   font-size: 2.2rem;
 }
 .session-time {
@@ -93,15 +168,23 @@
   border: 0px;
   font-size: 14px;
   padding: 8px 18px;
+  font-weight: 500;
   color: #fff;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .session-time table thead tr th {
+    text-align: left;
+  }
 }
 .session-time table thead tr th h3 {
   font-size: 26px;
   line-height: 30px;
   margin: 0;
-  font-weight: 600;
+  font-weight: bold !important;
   color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
+  tex-align: left;
 }
 .single-timeslot .session-table {
   position: relative;
@@ -110,9 +193,12 @@
   display: -ms-flexbox;
   display: flex;
 }
-.single-timeslot .session-table .table-scroll{overflow:scroll}
+.single-timeslot .session-table .table-scroll {
+  overflow-x: auto;
+}
 .single-timeslot .session-table .timeslot-title {
-  width: 230px;
+  width: 190px;
+  max-width: 190px;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
@@ -135,14 +221,15 @@
   font-weight: bold;
   line-height: 30px;
   color: #2A327F;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
 .single-timeslot .session-table .timeslot-title h4 span {
   font-size: 14px;
   display: block;
+  font-weight: 500;
 }
 .single-timeslot .session-table .timeslot-title .timeslot-title-in {
-  width: 100%;
+  width: 190px;
   -ms-flex-item-align: center;
   align-self: center;
 }
@@ -159,6 +246,7 @@
   color: #2A327F;
   border-bottom: 1px solid #2A327F;
   height: 64px;
+  font-family: 'Roboto';
 }
 .single-timeslot .session-table table tr td {
   width: 135px;
@@ -198,14 +286,16 @@
   font-size: 16px;
   font-weight: bold;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
+  color: #000;
 }
 .session-card .card-info p {
   font-size: 14px;
   margin-bottom: 0px;
   font-style: italic;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
+  color: #000;
 }
 .session-card span {
   width: 100%;
@@ -217,19 +307,19 @@
   text-align: center;
   display: inline-block;
   font-weight: bold;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
 .card-detail-popup {
   width: 1247px;
   display: none;
 }
 .card-detail-popup h3 {
-  font-weight: bold;
+  font-weight: 900 !important;
   font-size: 36px;
   color: #2A327F;
   line-height: 42px;
   margin-bottom: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
 .card-detail-popup h3 span {
   font-weight: 400;
@@ -237,20 +327,21 @@
 }
 .card-detail-popup h4 {
   font-size: 26px;
-  font-weight: bold;
-  font-family: 'Roboto', sans-serif;
+  font-weight: bold !important;
+  font-family: 'Roboto';
   line-height: 30px;
   color: #2A327F;
+  text-transform: uppercase;
 }
 .card-detail-popup h4.speaker {
-  font-weight: 100;
+  font-weight: 400 !important;
   font-style: italic;
   margin-bottom: 18px;
 }
 .card-detail-popup p {
   font-size: 26px;
   line-height: 30px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
 .card-detail-popup .fancybox-close-small {
   display: none !important;
@@ -258,12 +349,15 @@
 .purple-btn {
   background-color: #2A327F;
   border: 1px solid #2A327F;
-  padding: 10px 11px;
-  font-family: 'Roboto', sans-serif;
+  padding: 19px 25px;
+  font-family: 'Roboto';
   color: #fff;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 32px;
+  border-radius: 0px;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -345,7 +439,11 @@
     padding: 0 20px;
   }
   .single-timeslot .session-table .timeslot-title {
-    width: 300px;
+    width: 200px;
+    max-width: 200px;
+  }
+  .single-timeslot .session-table .timeslot-title .timeslot-title-in {
+    width: 200px;
   }
   .card-detail-popup {
     width: 700px;
@@ -356,6 +454,10 @@
   .session-date h2 span {
     font-size: 1.5rem;
   }
+  .session-date h2 img {
+    max-height: 30px;
+    vertical-align: middle;
+  }
   .session-date h2 text {
     font-size: 1.5rem;
   }
@@ -365,7 +467,7 @@
     padding: 15px;
   }
   .card-detail-popup h3 {
-    font-size: 22px;
+    font-size: 24px;
     line-height: 24px;
     margin-bottom: 10px;
   }
@@ -374,12 +476,16 @@
     font-size: 20px;
   }
   .card-detail-popup h4 {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 23px;
   }
   .card-detail-popup p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 22px;
+  }
+  .card-detail-popup .purple-btn {
+    font-size: 24px;
+    letter-spacing: 1px;
   }
   table.mb-block thead tr th {
     display: block;
@@ -396,9 +502,11 @@
   }
   .session-date h2 img {
     max-width: 20px;
+    vertical-align: text-bottom;
   }
   .session-date h2 span {
     font-size: 0rem;
+    height: 30px;
   }
   .session-date h2 text {
     font-size: 1.2rem;
@@ -415,6 +523,7 @@
   }
   .single-timeslot .session-table .timeslot-title {
     width: inherit;
+    max-width: 100%;
     padding: 0;
     margin-top: 10px;
     border: 0px;
@@ -426,6 +535,9 @@
     font-size: 22px;
     line-height: 24px;
     margin-bottom: 0px;
+  }
+  .single-timeslot .session-table .timeslot-title .timeslot-title-in {
+    width: 100%;
   }
 }
 @media (max-width: 550px) {
@@ -441,4 +553,71 @@
     font-size: 16px;
     line-height: 22px;
   }
+}
+.page-events-schedule .page-head-desc {
+  text-align: center;
+}
+.page-events-schedule .page-head-desc h1 {
+  padding: 0;
+  color: #638acd;
+  font-size: 48px;
+  font-family: 'Roboto';
+  margin: 18px 0 8px;
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .page-events-schedule .page-head-desc h1 {
+    font-size: 36px;
+    margin: 18px 0 18px;
+  }
+}
+.page-events-schedule .page-head-desc ul {
+  list-style: none;
+  margin: 0 0 43px;
+}
+.page-events-schedule .page-head-desc ul li {
+  display: inline-block;
+  position: relative;
+  padding: 0 11px 0 5px;
+}
+.page-events-schedule .page-head-desc ul li a {
+  text-decoration: none;
+  color: #638acd;
+  border-bottom: 1px solid #638acd;
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  font-family: 'Roboto';
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+@media (max-width: 767px) {
+  .page-events-schedule .page-head-desc ul li a {
+    line-height: 32px;
+    font-weight: 600;
+    font-size: 22px;
+  }
+}
+.page-events-schedule .page-head-desc ul li a:hover {
+  color: #ef9c32;
+  border-color: #ef9c32;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+.page-events-schedule .page-head-desc ul li::after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 25px;
+  background: #92C138;
+  right: 0;
+  bottom: 4px;
+}
+.page-events-schedule .page-head-desc ul li:last-child::after {
+  display: none;
+}
+.page-events-schedule .page-head-desc ul li.active a {
+  font-weight: bold;
 }

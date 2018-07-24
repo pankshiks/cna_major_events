@@ -51,7 +51,10 @@ function cna_major_events_page($eventid) {
   cna_major_events_include_scripts();
   civicrm_initialize();
   $dayid = arg(3);
-  //echo civicrm_api('Event','get_count');exit;
+
+  // Get event title.
+  $EventResult = civicrm_api3('Event', 'get', array('id' => $eventid));
+  $scheduleInfo['eventTitle'] = $EventResult['values'][$eventid]['title'];
   // Day
   $dayCount = civicrm_api3('EventDay', 'getcount', array('event_id' => $eventid));
   $resultDay = civicrm_api3('EventDay', 'get', array( 'event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
@@ -65,15 +68,20 @@ function cna_major_events_page($eventid) {
       $scheduleInfo['dayCounter'] = $dayCounter++;
       // Once current day is set, next element in row will be considered as Next day and traversing will be stopped
       if(isset($scheduleInfo['day'])){
-        $scheduleInfo['nextday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
-        break;
+        $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
+        if(count($ExistedTimeInSche['values']) > 0){
+          $scheduleInfo['nextday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
+          break;
+        }
       }
       // check if currently traversed element is current day or previous day
       if($dayval['id'] == $dayid){
         $scheduleInfo['day'] = date('M d, Y', strtotime($dayval['day']));
       }else{
-
-        $scheduleInfo['previousday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
+        $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
+        if(count($ExistedTimeInSche['values']) > 0){
+          $scheduleInfo['previousday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
+        }
       }
     }
   }
@@ -92,14 +100,13 @@ function cna_major_events_page($eventid) {
     }
   }
 
-  $resultTimeslots = civicrm_api3('EventTimeSlot', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $resultTimeslots = civicrm_api3('EventTimeSlot', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('sort' => 'start_time')));
   if(count($resultTimeslots['values']) > 0){
     $j = 0;
+    $k = 1;
     $format = '%02d:%02d';
     foreach ($resultTimeslots['values'] as $timekey => $timeval) {
-      $slotCounter = $j; 
       $scheduleInfo['timeslot'][$j]['id'] = $timeval['id'];
-      $scheduleInfo['timeslot'][$j]['slotCounter'] = $slotCounter + 1;
       $startTime = date("g:i a", strtotime( convertToHoursMins($timeval['start_time'], '%02d:%02d '))); 
       $endTime =  date("g:i a", strtotime(convertToHoursMins($timeval['end_time'], '%02d:%02d ')));
 
@@ -108,6 +115,11 @@ function cna_major_events_page($eventid) {
         $scheduleInfo['timeslot'][$j]['timeslot_description'] = $timeval['timeslot_description'];
       }
       $scheduleInfo['timeslot'][$j]['end_time'] = $endTime;
+      // Increment Slot counter if current time Slot has session.
+      $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_time_slot_id' => $timeval['id']));
+      if(count($ExistedTimeInSche['values']) > 0){
+        $scheduleInfo['timeslot'][$j]['slotCounter'] = $k++;      
+      }
       $j++;
     }
   }
@@ -167,7 +179,7 @@ function cna_major_events_page($eventid) {
     } 
   }
   //$scheduleInfo = static_session();
-  //echo "<pre>";print_r($scheduleInfo);exit;
+  // echo "<pre>";print_r($scheduleInfo);exit;
   $vars = array(
     'scheduleInfo' => $scheduleInfo,
   );

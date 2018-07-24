@@ -1,5 +1,19 @@
 <?php //print "<div class='scheduleInfoArr' style='display:none'><pre>";print_r($scheduleInfo);echo "</pre></div>"; ?>
 <?php $imgPath = drupal_get_path('module', 'cna_major_events'); ?>
+<?php if(isset($scheduleInfo['eventTitle'])){ ?>
+  <div class="row">
+    <div class="large-12">
+      <div class="page-head-desc">
+        <h1><?php print $scheduleInfo['eventTitle']; ?></h1>
+        <ul>
+          <li><a href="#">PRICING</a></li>
+          <li><a href="#">SPONSORS &amp; EXHIBITORS</a></li>
+          <li class="active"><a href="#">SCHEDULE</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<?php } ?>
 <div class="row">
   <div class="large-12">
     <ul class="session-tags">
@@ -52,7 +66,7 @@ if(isset($scheduleInfo)){
                     <tr class="session-tracks">
                   <?php 
                   foreach ($scheduleInfo['track'] as $trackey => $trackval) {
-                    print '<th>'.$trackval['track_name'].'</th>';
+                    print '<th width="153">'.$trackval['track_name'].'</th>';
                   }
                   ?>
                     </tr>
@@ -65,7 +79,7 @@ if(isset($scheduleInfo)){
                     print '<tr>';
                     $session_i = 0;
                       foreach ($scheduleInfo['track'] as $trackey => $trackval) {
-                        print '<td>';
+                        print '<td width="153">';
                         if(isset($scheduleInfo['sessions'][$timeval['id']][$trackval['id']])){
                           if(isset($scheduleInfo['sessions'][$timeval['id']][$trackval['id']])){
                             foreach ($scheduleInfo['sessions'][$timeval['id']][$trackval['id']] as $sessionkey => $sessionval) {
@@ -118,27 +132,32 @@ if(isset($scheduleInfo)){
        </div>
     
       <?php
-        }else{ // print the Timeslot table
-          if(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){
-      ?>
-
-        <div class="session-time yellow-bg">
-        <table class="mb-block">
-          <thead>
-            <tr>
-              <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
-              <?php if(isset($timeval['timeslot_description'])){
-                ?>
-                  <th><h3><?php print $timeval['timeslot_description']; ?><h3></th>
-                <?php 
-              } ?>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <?php 
         }
-      }
+        elseif(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ // print the Timeslot table
+          //if(isset($timeval['timeslot_description']) && $timeval['timeslot_description'] != ""){ 
+            $timeslot_content = $timeval['timeslot_description'];
+          //}else{
+          //   No result 
+          //   $timeslot_content = 'No Session has been scheduled for current Timeslot';
+          // }
+          if(isset($timeslot_content)){ ?>
+            <div class="session-time yellow-bg">
+              <table class="mb-block">
+                <thead>
+                  <tr>
+                    <th width="200"><?php print $timeval['start_time']; ?> to <?php print $timeval['end_time']; ?></th>
+                    <?php if(isset($timeslot_content)){
+                      ?>
+                        <th><h3><?php print $timeslot_content; ?><h3></th>
+                      <?php 
+                    } ?>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <?php 
+          }
+        }
     }
   }
   ?>
