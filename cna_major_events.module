@@ -147,7 +147,8 @@ function cna_major_events_page($eventid) {
   }
     
   // Event Session List
-  $eventSession = civicrm_api3('EventSession', 'get', array('event_id' => $eventid));
+  $eventSessioncount = civicrm_api3('EventSession', 'getcount', array('event_id' => $eventid));
+  $eventSession = civicrm_api3('EventSession', 'get', array('event_id' => $eventid,'options' => array('limit' => $eventSessioncount)));
   $scheduleSessionList = array(); // List of already scheduled Sessions
   if(count($eventSession['values']) > 0 ){
     foreach ($eventSession['values'] as $eskey => $esvalue) {
@@ -181,7 +182,8 @@ function cna_major_events_page($eventid) {
   }
   //echo "<pre>";print_r($sessionInfo);exit;
   // Schedule list
-  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $eventScheduleCount = civicrm_api3('Schedule', 'getcount', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid ,'options' => array('limit' => $eventScheduleCount)));
   
   if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
     $k = 0;
@@ -201,7 +203,6 @@ function cna_major_events_page($eventid) {
     } 
   }
   //$scheduleInfo = static_session();
-  //echo "<pre>";print_r($scheduleInfo);exit;
   $vars = array(
     'scheduleInfo' => $scheduleInfo,
   );
