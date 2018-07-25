@@ -126,28 +126,69 @@
     font-weight:900 !important;
     text-align: center;
     font-family: 'Roboto';
+    position:relative;
     img{
             max-height: 44px;
-            vertical-align: text-bottom;
+            position:absolute;
+            top: 50%;
+            transform: translate(0%,-50%);
+      -webkit-transform: translate(0%,-50%);
+      transition:0.3s all;
+      -webkit-transition:0.3s all;
+            &.hover-img{
+              opacity:0;
+              transition:0.3s all;
+      -webkit-transition:0.3s all;
+            }
     }
     a{
       color:@white;
       transition:0.3s all;
       -webkit-transition:0.3s all;
+      position: relative;
+      display:inline-block;
       &:hover {
           color: #f1c319;
           transition:0.3s all;
       -webkit-transition:0.3s all;
+      img{
+        opacity:0;
+        transition:0.3s all;
+      -webkit-transition:0.3s all;
+          &.hover-img{
+            opacity:1;
+            transition:0.3s all;
+      -webkit-transition:0.3s all;
+          }  
+        }
       }
     }
     .next-date{
-      float:right;
+      position:absolute;
+      right:0;
+      a{
+        padding-right: 40px;
+        @media(max-width:900px){
+          padding-right: 30px;
+        }
+        img{
+          right:0px;
+        }
+      }
     }
     .prev-date{
-      float:left;
+      position:absolute;
+      left:0;
+      a{
+        padding-left: 40px;
+        @media(max-width:900px){
+          padding-left: 30px;
+        }
+      }
       img{
-        transform:rotate(180deg);
-        -webkit-transform:rotate(180deg);
+        left:0;
+        transform:rotate(180deg) translate(0%,50%);
+        -webkit-transform:rotate(180deg) translate(0%,50%);
       }
     }
     text{

@@ -51,6 +51,7 @@ function cna_major_events_page($eventid) {
   cna_major_events_include_scripts();
   civicrm_initialize();
   $dayid = arg(3);
+  $isDayExist = 1;
 
   // Code to check if day exist or not
   if(!empty($dayid)){
@@ -69,6 +70,7 @@ function cna_major_events_page($eventid) {
   // Day
   $dayCount = civicrm_api3('EventDay', 'getcount', array('event_id' => $eventid));
   $resultDay = civicrm_api3('EventDay', 'get', array( 'event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
+  //echo "<pre>".$eventid;print_r($resultDay);exit;
   if(count($resultDay['values']) > 0 ){
     $dayCounter = 0;
     //echo "<prE>";print_r($resultDay['values']);exit;
@@ -99,6 +101,11 @@ function cna_major_events_page($eventid) {
         }
       }
     }
+  }else{
+    $vars = array(
+      'scheduleInfo' => array('no_result' => 'Sorry, No results found'),
+    );
+    return theme('cna_major_events', $vars);
   }
   
   // initialization of scheduleInfo
