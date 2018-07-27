@@ -190,6 +190,11 @@ function cna_major_events_page($eventid) {
   if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
     $k = 0;
     foreach ($eventSchedule['values'] as $eschekey => $escheval) {
+      // code to prevent session that are not exists ion database civicrm_event_session table
+      if(!array_key_exists($escheval['event_session_id'], $scheduleSessionList)){
+        continue;
+      }
+      
       $scheduleInfo['sessions'][$escheval['event_time_slot_id']][$escheval['event_track_id']][$k] = $sessionInfo[$escheval['event_session_id']];
       if(isset($escheval['session_slot'])){
         $j = $k-1;
