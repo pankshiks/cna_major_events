@@ -6,8 +6,8 @@
       <div class="page-head-desc">
         <h1><?php print $scheduleInfo['eventTitle']; ?></h1>
         <ul>
-          <li><a href="#">PRICING</a></li>
-          <li><a href="#">SPONSORS &amp; EXHIBITORS</a></li>
+          <li><a href="https://www.coloradononprofits.org/conference-pricing">PRICING</a></li>
+          <li><a href="https://www.coloradononprofits.org/sponsors-and-exhibitors">SPONSORS &amp; EXHIBITORS</a></li>
           <li class="active"><a href="#">SCHEDULE</a></li>
         </ul>
       </div>

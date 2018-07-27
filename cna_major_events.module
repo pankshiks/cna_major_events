@@ -210,7 +210,6 @@ function cna_major_events_page($eventid) {
     } 
   }
   //$scheduleInfo = static_session();
-  //echo "<pre>";print_r($scheduleInfo);exit;
   $vars = array(
     'scheduleInfo' => $scheduleInfo,
   );
