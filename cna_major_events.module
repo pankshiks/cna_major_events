@@ -184,7 +184,8 @@ function cna_major_events_page($eventid) {
   }
   //echo "<pre>";print_r($sessionInfo);exit;
   // Schedule list
-  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $eventScheduleCount = civicrm_api3('Schedule', 'getcount', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('limit' => $eventScheduleCount)));
   
   if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
     $k = 0;
