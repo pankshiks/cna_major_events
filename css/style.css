@@ -338,6 +338,8 @@
   line-height: 18px;
   font-family: 'Roboto';
   color: #000;
+  max-height: 70px;
+  overflow: hidden;
 }
 .session-card .card-info p {
   font-size: 14px;

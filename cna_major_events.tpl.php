@@ -1,13 +1,13 @@
 <?php //print "<div class='scheduleInfoArr' style='display:none'><pre>";print_r($scheduleInfo);echo "</pre></div>"; ?>
-<?php $imgPath = drupal_get_path('module', 'cna_major_events');$noSchedule = TRUE; ?>
+<?php global $base_url;$imgPath = drupal_get_path('module', 'cna_major_events');$noSchedule = TRUE; ?>
 <?php if(isset($scheduleInfo['eventTitle'])){ ?>
   <div class="row">
     <div class="large-12">
       <div class="page-head-desc">
         <h1><?php print $scheduleInfo['eventTitle']; ?></h1>
         <ul>
-          <li><a href="https://www.coloradononprofits.org/conference-pricing">PRICING</a></li>
-          <li><a href="https://www.coloradononprofits.org/sponsors-and-exhibitors">SPONSORS &amp; EXHIBITORS</a></li>
+          <li><a href="<?php print $base_url; ?>/conference-pricing">PRICING</a></li>
+          <li><a href="<?php print $base_url; ?>/sponsors-and-exhibitors">SPONSORS &amp; EXHIBITORS</a></li>
           <li class="active"><a href="#">SCHEDULE</a></li>
         </ul>
       </div>
