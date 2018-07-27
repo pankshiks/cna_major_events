@@ -69,7 +69,7 @@ function cna_major_events_page($eventid) {
   $scheduleInfo['eventTitle'] = $EventResult['values'][$eventid]['title'];
   // Day
   $dayCount = civicrm_api3('EventDay', 'getcount', array('event_id' => $eventid));
-  $resultDay = civicrm_api3('EventDay', 'get', array( 'event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
+  $resultDay = civicrm_api3('EventDay', 'get', array('event_id' => $eventid, 'options' => array('limit' => $dayCount, 'sort' => "day"), 'sequential'=> 1));
   //echo "<pre>".$eventid;print_r($resultDay);exit;
   if(count($resultDay['values']) > 0 ){
     $dayCounter = 0;
@@ -80,11 +80,12 @@ function cna_major_events_page($eventid) {
         $dayid = $dayval['id'];
       }
       $dayCounter++;
+
+      // check if schedule exists for this day and event
+      $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
       
       // Once current day is set, next element in row will be considered as Next day and traversing will be stopped
       if(isset($scheduleInfo['day'])){
-        $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
-
         if(count($ExistedTimeInSche['values']) > 0){
           $scheduleInfo['nextday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
           break;
@@ -95,7 +96,6 @@ function cna_major_events_page($eventid) {
         $scheduleInfo['dayCounter'] = $dayCounter;
         $scheduleInfo['day'] = date('M d, Y', strtotime($dayval['day']));
       }else{
-        $ExistedTimeInSche = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayval['id']));
         if(count($ExistedTimeInSche['values']) > 0){
           $scheduleInfo['previousday'] = '/events/'.$eventid.'/schedule/'.$dayval['id'];
         }
@@ -112,7 +112,8 @@ function cna_major_events_page($eventid) {
   $scheduleInfo['eid'] = $eventid;
   $scheduleInfo['dayid'] = $dayid;
 
-  $resultTracks = civicrm_api3('EventTrack', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $tracksCount = civicrm_api3('EventTrack', 'getcount', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $resultTracks = civicrm_api3('EventTrack', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('limit' => $tracksCount)));
   if(count($resultTracks['values']) > 0){
     $j = 0;
     foreach ($resultTracks['values'] as $trackkey => $trackval) {
@@ -122,7 +123,8 @@ function cna_major_events_page($eventid) {
     }
   }
 
-  $resultTimeslots = civicrm_api3('EventTimeSlot', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('sort' => 'start_time')));
+  $timeslotsCount = civicrm_api3('EventTimeSlot', 'getcount', array('event_id' => $eventid, 'event_day_id' => $dayid));
+  $resultTimeslots = civicrm_api3('EventTimeSlot', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('limit' => $timeslotsCount,'sort' => 'start_time')));
   if(count($resultTimeslots['values']) > 0){
     $j = 0;
     $k = 1;
@@ -147,8 +149,8 @@ function cna_major_events_page($eventid) {
   }
     
   // Event Session List
-  $eventSessioncount = civicrm_api3('EventSession', 'getcount', array('event_id' => $eventid));
-  $eventSession = civicrm_api3('EventSession', 'get', array('event_id' => $eventid,'options' => array('limit' => $eventSessioncount)));
+  $sessCount = civicrm_api3('EventSession', 'getcount', array('event_id' => $eventid));
+  $eventSession = civicrm_api3('EventSession', 'get', array('event_id' => $eventid, 'options' => array('limit' => $sessCount),));
   $scheduleSessionList = array(); // List of already scheduled Sessions
   if(count($eventSession['values']) > 0 ){
     foreach ($eventSession['values'] as $eskey => $esvalue) {
@@ -183,7 +185,7 @@ function cna_major_events_page($eventid) {
   //echo "<pre>";print_r($sessionInfo);exit;
   // Schedule list
   $eventScheduleCount = civicrm_api3('Schedule', 'getcount', array('event_id' => $eventid, 'event_day_id' => $dayid));
-  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid ,'options' => array('limit' => $eventScheduleCount)));
+  $eventSchedule = civicrm_api3('Schedule', 'get', array('event_id' => $eventid, 'event_day_id' => $dayid, 'options' => array('limit' => $eventScheduleCount)));
   
   if(count($eventSchedule['values']) > 0 && !empty($scheduleSessionList)){
     $k = 0;

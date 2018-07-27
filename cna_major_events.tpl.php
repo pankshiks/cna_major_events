@@ -18,56 +18,7 @@
 <?php 
 if(isset($scheduleInfo['no_result'])){
   print '<div class="row"><div class="large-12"><h1>'.$scheduleInfo['no_result'].'</h1></div></div>';
-}/*elseif(!isset($scheduleInfo['sessions']) && ){
-  $day = date('l d, M', strtotime($scheduleInfo['day']));
-?>
-  <div class="row">
-    <div class="large-12">
-      <ul class="session-tags">
-        <li class="beginner"> Beginner </li>
-        <li class="intermediate"> Intermediate </li>
-        <li class="advanced"> Advanced </li>
-      </ul>
-    </div>
-  </div>
-  <div class="session-date">
-    <div class="row">
-      <div class="large-12">
-        <h2>
-          <?php if(isset($scheduleInfo["previousday"])){
-            ?>
-            <span class="prev-date"><a href="<?php print $scheduleInfo["previousday"]; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
-            <?php   
-          } ?>
-          
-          DAY <?php print $scheduleInfo["dayCounter"]; ?> | <text> <?php print $day; ?> </text> 
-          <?php if(isset($scheduleInfo["nextday"])){ ?>
-                  <span class="next-date"><a href="<?php print $scheduleInfo["nextday"]; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
-          <?php } ?>      
-      </div>
-    </div>
-  </div>
-  <div class="row"><div class="large-12"><h1>Sorry, No Session is Scheduled for this Day</h1></div></div>
-  <div class="session-date">
-    <div class="row">
-      <div class="large-12">
-        <h2>
-          <?php if(isset($scheduleInfo["previousday"])){
-            ?>
-            <span class="prev-date"><a href="<?php print $scheduleInfo["previousday"]; ?>"><img src="/<?php print $imgPath ?>/images/right-tri.png"> previous day </a></span>
-            <?php   
-          } ?>
-          
-          DAY <?php print $scheduleInfo["dayCounter"]; ?> | <text> <?php print $day; ?> </text> 
-          <?php if(isset($scheduleInfo["nextday"])){ ?>
-                  <span class="next-date"><a href="<?php print $scheduleInfo["nextday"]; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"></a></span></h2>  
-          <?php } ?>      
-      </div>
-    </div>
-  </div>
-
-<?php 
-}*/else{ 
+}else{ 
   $day = date('l d, M', strtotime($scheduleInfo['day']));
   ?>
   <div class="row">
@@ -103,7 +54,7 @@ if(isset($scheduleInfo['no_result'])){
 
       //print timeslot description if it doesn't contain any sessions
       if(isset($scheduleInfo['sessions'][$timeval['id']])){
-        
+        $noSchedule = FALSE;
       ?>
        <div class="single-timeslot">
           <div class="session-table">
@@ -139,10 +90,39 @@ if(isset($scheduleInfo['no_result'])){
                                 ?>
                                 <a href="javascript:;" class="session-card fancybox" data="<?php print 'sch_'.$trackval['id'].'_'.$timeval['id'].'_'.$sessionval['id']; ?>" rel="group">
                                   <div class="card-info">
-                                    <h5><?php print $sessionval['title']; ?></h5>
+                                    <h5>
+                                      <?php if(strlen($sessionval['title']) > 60):print substr($sessionval['title'], 0 , 60).'...'; else : print $sessionval['title'];endif; ?>
+                                    </h5>
                                     <?php if(isset($sessionval['session_speaker'])){
+                                      // conditions to display speaker only in 2 lines
                                       foreach ($sessionval['session_speaker'] as $key => $value) {
-                                        print '<p>'.$value.'</p>';    
+                                        if(count($sessionval['session_speaker']) > 1){
+                                          // if more than one speakers
+                                          if(strlen($value) >= 17 && $key == 0){
+                                            print '<p>'.substr($value, 0 , 17).'...</p>'; 
+                                            break; // if first speaker name is long string, then break the loop
+                                          }elseif(strlen($value) > 13 && strlen($value) < 17 && $key == 0){
+                                            print '<p>'.$value.'</p>';
+                                            break;
+                                          }elseif(strlen($value) > 13 && $key == 1){
+                                            print '<p>'.substr($value, 0 , 13).'...</p>';
+                                          }elseif(strlen($value) <= 13){
+                                            print '<p>'.$value.'</p>'; 
+                                          }else{
+                                            print '<p>'.$value.'</p>';
+                                          }
+
+                                          if($key == 1){
+                                            break;
+                                          }
+                                        }else{
+                                          // if only one speaker
+                                          if(strlen($value) > 17){
+                                            print '<p>'.substr($value, 0 , 17).'...</p>'; 
+                                          }else{
+                                            print '<p>'.$value.'</p>'; 
+                                          }
+                                        }
                                       }
                                     } ?>
                                     
