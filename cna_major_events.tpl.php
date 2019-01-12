@@ -19,17 +19,8 @@
 if(isset($scheduleInfo['no_result'])){
   print '<div class="row"><div class="large-12"><h1>'.$scheduleInfo['no_result'].'</h1></div></div>';
 }else{ 
-  $day = date('l d, M', strtotime($scheduleInfo['day']));
+  $day = date('l, F d', strtotime($scheduleInfo['day']));
   ?>
-  <div class="row">
-    <div class="large-12">
-      <ul class="session-tags">
-        <li class="beginner"> Beginner </li>
-        <li class="intermediate"> Intermediate </li>
-        <li class="advanced"> Advanced </li>
-      </ul>
-    </div>
-  </div>
   <div class="session-date">
     <div class="row">
       <div class="large-12">
@@ -40,7 +31,7 @@ if(isset($scheduleInfo['no_result'])){
             <?php   
           } ?>
           
-          DAY <?php print $scheduleInfo['dayCounter']; ?> | <text> <?php print $day; ?> </text> 
+          <text> <?php print $day; ?> </text> 
           <?php if(isset($scheduleInfo['nextday'])){ ?>
                   <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"></a></span></h2>  
           <?php } ?>      
@@ -207,7 +198,7 @@ if(isset($scheduleInfo['no_result'])){
             <?php   
           } ?>
           
-          DAY <?php print $scheduleInfo['dayCounter']; ?> | <text> <?php print $day; ?> </text> 
+          <text> <?php print $day; ?> </text> 
           <?php if(isset($scheduleInfo['nextday'])){ ?>
                   <span class="next-date"><a href="<?php print $scheduleInfo['nextday']; ?>">next day <img src="/<?php print $imgPath ?>/images/right-tri.png"><img class="hover-img" src="/<?php print $imgPath ?>/images/right-yellow.png"></a></span></h2>  
           <?php } ?>      

@@ -82,6 +82,10 @@
 .beginner {
   background-color: #005A4F;
 }
+.none {
+  background-color: #2A327F;
+  color: transparent !important;
+}
 .intermediate {
   background-color: #2A327F;
 }
@@ -96,7 +100,7 @@
 .session-tags li {
   display: inline-block;
   margin-right: 9px;
-  color: #fff;
+  color: #ffffff;
   padding: 11px;
   font-family: 'Roboto';
   font-weight: Bold;
@@ -105,14 +109,14 @@
   text-transform: uppercase;
 }
 .session-date {
-  background-color: #2A327F;
+  background-color: #2a327f;
   margin-top: 10px;
 }
 .session-date h2 {
   margin: 0px;
   padding: 13px 0;
   line-height: 42px;
-  color: #fff;
+  color: #ffffff;
   font-weight: 900 !important;
   text-align: center;
   font-family: 'Roboto';
@@ -122,22 +126,18 @@
   max-height: 44px;
   position: absolute;
   top: 50%;
-  -ms-transform: translate(0%, -50%);
   transform: translate(0%, -50%);
   -webkit-transform: translate(0%, -50%);
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
 .session-date h2 img.hover-img {
   opacity: 0;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
 .session-date h2 a {
-  color: #fff;
-  -o-transition: 0.3s all;
+  color: #ffffff;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
   position: relative;
@@ -145,19 +145,16 @@
 }
 .session-date h2 a:hover {
   color: #f1c319;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
 .session-date h2 a:hover img {
   opacity: 0;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
 .session-date h2 a:hover img.hover-img {
   opacity: 1;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
@@ -190,7 +187,6 @@
 }
 .session-date h2 .prev-date img {
   left: 0;
-  -ms-transform: rotate(180deg) translate(0%, 50%);
   transform: rotate(180deg) translate(0%, 50%);
   -webkit-transform: rotate(180deg) translate(0%, 50%);
 }
@@ -219,7 +215,7 @@
   font-size: 14px;
   padding: 8px 18px;
   font-weight: 500;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 @media (max-width: 767px) {
@@ -232,15 +228,13 @@
   line-height: 30px;
   margin: 0;
   font-weight: bold !important;
-  color: #fff;
+  color: #ffffff;
   font-family: 'Roboto';
   tex-align: left;
 }
 .single-timeslot .session-table {
   position: relative;
   border: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .single-timeslot .session-table .table-scroll {
@@ -249,28 +243,22 @@
 .single-timeslot .session-table .timeslot-title {
   width: 190px;
   max-width: 190px;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
   flex-grow: 1;
   text-align: center;
   padding: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-top: 64px;
-  border-top: 1px solid #2A327F;
-  border-right: 1px solid #2A327F;
+  border-top: 1px solid #2a327f;
+  border-right: 1px solid #2a327f;
 }
 @-moz-document url-prefix() {
-  .single-timeslot .session-table .timeslot-title {
-    margin-top: 63px;
-  }
+  margin-top: 63px;
 }
 .single-timeslot .session-table .timeslot-title h4 {
   font-size: 26px;
   font-weight: bold;
   line-height: 30px;
-  color: #2A327F;
+  color: #2a327f;
   font-family: 'Roboto';
 }
 .single-timeslot .session-table .timeslot-title h4 span {
@@ -280,7 +268,6 @@
 }
 .single-timeslot .session-table .timeslot-title .timeslot-title-in {
   width: 190px;
-  -ms-flex-item-align: center;
   align-self: center;
 }
 .single-timeslot .session-table table {
@@ -293,8 +280,8 @@
 }
 .single-timeslot .session-table table .session-tracks th {
   text-align: center;
-  color: #2A327F;
-  border-bottom: 1px solid #2A327F;
+  color: #2a327f;
+  border-bottom: 1px solid #2a327f;
   height: 64px;
   font-family: 'Roboto';
 }
@@ -310,13 +297,11 @@
 .session-card {
   display: inline-block;
   margin-bottom: 6px;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
 .session-card:hover .card-info {
   background-color: #f1f1f1;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
@@ -324,11 +309,10 @@
   outline: none !important;
 }
 .session-card .card-info {
-  background-color: #ddd;
-  -o-transition: 0.3s all;
+  background-color: #dddddd;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
-  color: #000;
+  color: #000000;
   min-height: 186px;
   padding: 15px;
 }
@@ -354,7 +338,7 @@
   border-radius: 0px;
   font-size: 12px;
   padding: 8px;
-  color: #fff;
+  color: #ffffff;
   text-transform: uppercase;
   text-align: center;
   display: inline-block;
@@ -368,7 +352,7 @@
 .card-detail-popup h3 {
   font-weight: 900 !important;
   font-size: 36px;
-  color: #2A327F;
+  color: #2a327f;
   line-height: 42px;
   margin-bottom: 18px;
   font-family: 'Roboto';
@@ -382,7 +366,7 @@
   font-weight: bold !important;
   font-family: 'Roboto';
   line-height: 30px;
-  color: #2A327F;
+  color: #2a327f;
   text-transform: uppercase;
 }
 .card-detail-popup h4.speaker {
@@ -399,11 +383,11 @@
   display: none !important;
 }
 .purple-btn {
-  background-color: #2A327F;
-  border: 1px solid #2A327F;
+  background-color: #2a327f;
+  border: 1px solid #2a327f;
   padding: 19px 25px;
   font-family: 'Roboto';
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 32px;
@@ -581,8 +565,8 @@
     border: 0px;
   }
   .single-timeslot .session-table .timeslot-title h4 {
-    background-color: #2A327F;
-    color: #fff;
+    background-color: #2a327f;
+    color: #ffffff;
     padding: 10px 0;
     font-size: 22px;
     line-height: 24px;
@@ -640,7 +624,6 @@
   font-weight: 500;
   position: relative;
   font-family: 'Roboto';
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
@@ -654,7 +637,6 @@
 .page-events-schedule .page-head-desc ul li a:hover {
   color: #ef9c32;
   border-color: #ef9c32;
-  -o-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
 }
