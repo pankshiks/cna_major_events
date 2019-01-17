@@ -5,11 +5,11 @@
     <div class="large-12">
       <div class="page-head-desc">
         <h1><?php print $scheduleInfo['eventTitle']; ?></h1>
-        <ul>
+<!--        <ul>
           <li><a href="<?php print $base_url; ?>/conference-pricing">PRICING</a></li>
           <li><a href="<?php print $base_url; ?>/sponsors-and-exhibitors">SPONSORS &amp; EXHIBITORS</a></li>
           <li class="active"><a href="#">SCHEDULE</a></li>
-        </ul>
+        </ul>-->
       </div>
     </div>
   </div>
